@@ -3,3 +3,6 @@
 ################################################################################
 
 /.vs/KubeTestApp/v16/.suo
+/.vs
+/KubeTestApp/bin/Debug/net5.0
+/KubeTestApp/obj
