@@ -20,6 +20,8 @@ spec:
         env:
         - name: APPINSIGHTS_INSTRUMENTATIONKEY
           value: xxxx
+        - name: ASPNETCORE_URLS
+          value: "http://0.0.0.0:8000"
         resources:
           requests:
             cpu: 50m
@@ -28,7 +30,7 @@ spec:
             cpu: 250m
             memory: 256Mi
         ports:
-        - containerPort: 80
+        - containerPort: 8000
           name: http
 ---
 apiVersion: v1
@@ -38,7 +40,7 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-  - port: 80
+  - port: 8000
   selector:
     app: kubetestapp
 ---
@@ -52,7 +54,7 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
   rules:
-    http:
+  - http:
       paths:
       - pathType: Prefix
         path: /test(/|$)(.*)
@@ -60,5 +62,4 @@ spec:
           service:
             name: kubetestapp-service
             port: 
-              number: 80
-
+              number: 8000
